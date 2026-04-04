@@ -9,12 +9,10 @@ public:
         
         for (int j = 0; j < cols; j++) {
             for (int r = 0, c = j; r < rows && c < cols; r++, c++) {
-                // Map 2D coordinates (r, c) back to 1D index
                 ans.push_back(encodedText[r * cols + c]);
             }
         }
         
-        // Remove trailing spaces as per problem constraints
         while (!ans.empty() && ans.back() == ' ') {
             ans.pop_back();
         }
