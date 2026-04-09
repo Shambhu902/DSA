@@ -41,7 +41,7 @@ public:
                     nums[i]=x;
                 }
             }
-            else  add2Bucket(k, j);// insert index j to list bucket[k]
+            else  add2Bucket(k, j);
         }
 
         for (int k=1; k<Block; k++) {
