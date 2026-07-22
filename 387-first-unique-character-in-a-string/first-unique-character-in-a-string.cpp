@@ -1,11 +1,21 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        int cnt[26] = {0};
-        for (char c : s) cnt[c - 'a']++;
-        for (int i = 0; i < s.size(); ++i) {
-            if (cnt[s[i] - 'a'] == 1) return i;
+        unordered_map<char, int> m;
+        queue<int> q;
+
+        for (int i = 0; i < s.size(); i++) {
+            m[s[i]]++;
+
+            if (m[s[i]] == 1) {
+                q.push(i);
+            }
+
+            while (!q.empty() && m[s[q.front()]] > 1) {
+                q.pop();
+            }
         }
-        return -1;
+
+        return q.empty() ? -1 : q.front();
     }
 };
