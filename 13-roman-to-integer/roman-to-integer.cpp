@@ -1,14 +1,37 @@
 class Solution {
 public:
     int romanToInt(string s) {
-        
-        unordered_map<char,int>m({{'I',1}, {'X',10}, {'C',100}, {'M',1000}, {'V',5}, {'L',50}, {'D',500}});
-        if(s.size() == 0) return 0;
-        int sum = m[s[s.size() - 1]];
-        for(int i = s.size() - 2; i >= 0; i--){
-            if(m[s[i]] >= m[s[i + 1]]) sum += m[s[i]];
-            else sum -= m[s[i]];
+
+        map<char, int> m;
+
+        m.insert({'I', 1});
+        m.insert({'V', 5});
+        m.insert({'X', 10});
+        m.insert({'L', 50});
+        m.insert({'C', 100});
+        m.insert({'D', 500});
+        m.insert({'M', 1000});
+
+        int ans = 0;
+
+        for(int i = 0; i < s.size(); i++) {
+
+            // Last character
+            if(i == s.size() - 1) {
+                ans += m[s[i]];
+            }
+
+            // Current value >= next value
+            else if(m[s[i]] >= m[s[i + 1]]) {
+                ans += m[s[i]];
+            }
+
+            // Current value < next value
+            else {
+                ans -= m[s[i]];
+            }
         }
-        return sum;
+
+        return ans;
     }
 };
