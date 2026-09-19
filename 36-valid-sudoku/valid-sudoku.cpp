@@ -1,16 +1,35 @@
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char>>& board) {
-        int n = board.size();
-        vector<unordered_map<char, int>>row(n);
-        vector<unordered_map<char, int>>col(n);
-        vector<vector<unordered_map<char, int>>>sub(n/3, vector<unordered_map<char, int>>(n/3));
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < n; j++){
-                char c = board[i][j];
-                if(c == '.') continue;
-                if(row[i][c]++ > 0 || col[j][c]++ > 0 || sub[i/3][j/3][c]++ > 0) return false;
+        int rowcase[9][9] = {0};
+        int colcase[9][9] = {0};
+        int gridcase[9][9] = {0};
+
+        // Traverse every cell
+        for(int i = 0; i < board.size(); i++) {
+
+            for(int j = 0; j < board[0].size(); j++) {
+
+                // If it is a number
+                if(board[i][j] != '.') {
+
+                    // Convert character to integer
+                    int number = board[i][j] - '0';
+
+                    // Find the 3x3 grid number
+                    int k = i / 3 * 3 + j / 3;
+
+                    // Check row, column, and grid
+                    if(rowcase[i][number - 1]++ ||
+                       colcase[j][number - 1]++ ||
+                       gridcase[k][number - 1]++) {
+
+                        return false;
+                    }
+                }
             }
+        }
+
         return true;
     }
 };
